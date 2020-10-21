@@ -1,12 +1,24 @@
 <?php
     include_once "core/init.php";
     $db = Db::getInstance();
-
     if(Input::exists("post")){
         if(Token::Check(Input::get("token"))){
             $validate = new Validation();
-            if($validate->insert($_POST)){
-
+            $validate->check($_POST, array(
+                "x_coordonne" => array(
+                    "required" => true
+                ),
+                "y_coordonne" => array(
+                    "required" => true
+                )
+            ));
+            if($validate->passed()){
+                $validate->insert($_POST);
+            } else{
+                $errors = $validate->getErrors();
+                foreach($errors as $error){
+                    echo $error . '<br>';
+                }
             }
         }
     }
@@ -36,11 +48,11 @@
                 <p>Codonnée:</p>
                 <div>
                     <label for="x">X</label>
-                    <input type="text" name="x_coordonne" id="x">
+                    <input type="text" name="x_coordonne" id="x" value=<?=Input::get("x_coordonne")?>>
                 </div>
                 <div>
                     <label for="y">Y</label>
-                    <input type="text" name="y_coordonne" id="y">
+                    <input type="text" name="y_coordonne" id="y" value=<?=Input::get("y_coordonne")?>>
                 </div>
                 <input type="hidden" name="token" value=<?=TOKEN::generate() ?>>
                 <button type="submit">Ajouter</button>

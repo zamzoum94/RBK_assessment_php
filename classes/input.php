@@ -8,4 +8,14 @@
                 default : return false;
             }
         }
+
+        public static function get($prop){
+            if(isset($_POST[$prop])){
+                return $_POST[$prop];
+            } else if(isset($_GET[$prop])){
+                return $_GET[$prop];
+            } else{
+                return "";
+            }
+        }
     }

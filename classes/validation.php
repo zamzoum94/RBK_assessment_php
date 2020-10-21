@@ -1,6 +1,7 @@
 <?php
     class Validation{
-        public function insert($items, $requirement = array()){
+        public $errors;
+        public function insert($items){
             $db = DB::getInstance();
             $type = $items["type"];
             $x_coordonne = $items["x_coordonne"];
@@ -19,5 +20,29 @@
                     }
                 }
             }
+        }
+
+        public function check($items, $requirement = array()){
+            $this->errors = array();
+            foreach($requirement as $index=>$rules){
+                $value = $items[$index];
+                foreach($rules as $rule=>$need){
+                    if($rule === "required" && empty($value)){
+                        $this->addError("${index} is required");
+                    }
+                }
+            }
+        }
+
+        public function passed(){
+            return count($this->errors) > 0 ? false : true;
+        }
+
+        public function addError($error){
+            $this->errors[] = $error;
+        }
+        
+        public function getErrors(){
+            return $this->errors;
         }
     }
