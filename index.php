@@ -3,10 +3,11 @@
     $db = Db::getInstance();
 
     if(Input::exists("post")){
-        var_dump($_POST);
-        $validate = new Validation();
-        if($validate->insert($_POST)){
-            
+        if(Token::Check(Input::get("token"))){
+            $validate = new Validation();
+            if($validate->insert($_POST)){
+
+            }
         }
     }
 
@@ -41,6 +42,7 @@
                     <label for="y">Y</label>
                     <input type="text" name="y_coordonne" id="y">
                 </div>
+                <input type="hidden" name="token" value=<?=TOKEN::generate() ?>>
                 <button type="submit">Ajouter</button>
             </form>
         </section>
@@ -57,9 +59,9 @@
                     </tr>
                     <?php foreach($data["vanet"] as $vanet){ ?>
                     <tr>
-                        <td><?= $vanet->id ?></td>
-                        <td><?= $vanet->x_coordonne ?></td>
-                        <td><?= $vanet->y_coordonne ?></td>
+                        <td><?= escape($vanet->id) ?></td>
+                        <td><?= escape($vanet->x_coordonne) ?></td>
+                        <td><?= escape($vanet->y_coordonne) ?></td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -74,9 +76,9 @@
                     </tr>
                     <?php foreach($data["uwsn"] as $uwsn){ ?>
                     <tr>
-                        <td><?= $uwsn->id ?></td>
-                        <td><?= $uwsn->x_coordonne ?></td>
-                        <td><?= $uwsn->y_coordonne ?></td>
+                        <td><?= escape($uwsn->id) ?></td>
+                        <td><?= escape($uwsn->x_coordonne) ?></td>
+                        <td><?= escape($uwsn->y_coordonne) ?></td>
                     </tr>
                     <?php } ?>
                 </table>

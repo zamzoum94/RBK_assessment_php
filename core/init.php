@@ -6,6 +6,9 @@
             "username" => "root",
             "password" => "",
             "db" => "gestion_rcsf"
+        ),
+        "session" => array(
+            "token_name" => "token"
         )
     );
 
