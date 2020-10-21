@@ -2,11 +2,11 @@
 
     $GLOBALS["config"] = array(
         "mysql" => array(
-            "host" : "localhost",
-            "username" : "root",
-            "password" : "",
-            "db" : "gestion_rcsf"
-        );
+            "host" => "127.0.0.1",
+            "username" => "root",
+            "password" => "",
+            "db" => "gestion_rcsf"
+        )
     );
 
     spl_autoload_register(function($class){
